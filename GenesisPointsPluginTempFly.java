@@ -14,36 +14,28 @@ public class GenesisPointsPluginTempFly extends GenesisPointsPlugin {
     public GenesisPointsPluginTempFly() {
         super("TempFly", "TP");
 
-        Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("TempFly");
-        if (plugin != null) {
-            tp= ((TempFly) plugin);
-        }
     }
 
     @Override
     public double getPoints(OfflinePlayer player) {
-        UUID playerUUID = player.getUniqueId();
-        return tp.getAPI().getFlightTime(playerUUID);
+        return TempFly.getAPI().getFlightTime(player.getUniqueId());
     }
 
     @Override
     public double setPoints(OfflinePlayer player, double points) {
-        UUID playerUUID = player.getUniqueId();
-        tp.getAPI().setFlightTime(playerUUID, points);
+        TempFly.getAPI().setFlightTime(player.getUniqueId(), (int) points);
         return points;
     }
 
     @Override
     public double takePoints(OfflinePlayer player, double points) {
-        UUID playerUUID = player.getUniqueId();
-        tp.getAPI().removeFlightTime(playerUUID, points);
+        TempFly.getAPI().removeFlightTime(player.getUniqueId(), (int) points);
         return getPoints(player);
     }
 
     @Override
     public double givePoints(OfflinePlayer player, double points) {
-        UUID playerUUID = player.getUniqueId();
-        tp.getAPI().addFlightTime(playerUUID, points);
+        TempFly.getAPI().addFlightTime(player.getUniqueId(), (int) points);
         return getPoints(player);
     }
 
